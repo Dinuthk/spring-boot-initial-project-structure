@@ -7,4 +7,6 @@ public interface CustomerService {
     public String saveCustomer(CustomerDto customerDto);
 
     String updateCustomer(CustomerUpdateDTO customerUpdateDTO);
+
+    CustomerDto getCustomerById(int customerId);
 }
