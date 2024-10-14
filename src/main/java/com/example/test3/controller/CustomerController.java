@@ -45,10 +45,19 @@ public class CustomerController {
     //get all
 
     @GetMapping(
-            path = "get-all-customers"
+            path = "/get-all-customers"
     )
     public List<CustomerDto> getAllCustomers(){
         List<CustomerDto> allCustomers = customerService.getAllCustomer();
         return allCustomers;
+    }
+
+    //delete
+    @DeleteMapping(
+            path = "/delete-customer/{id}"
+    )
+    public String deleteCustomer(@PathVariable(value = "id") int customerId){
+        String delete = customerService.deleteCustomer(customerId);
+        return delete;
     }
 }

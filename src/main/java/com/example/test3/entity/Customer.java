@@ -1,9 +1,6 @@
 package com.example.test3.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "customer")
@@ -11,6 +8,7 @@ public class Customer {
 
     @Id
     @Column(name = "customer_Id",length = 45)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
 
     @Column(name = "Customer_Name",length = 100,nullable = false)
