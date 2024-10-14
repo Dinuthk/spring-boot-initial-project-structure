@@ -8,6 +8,9 @@ import com.example.test3.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Service
 public class CustomerServiceIMPL implements CustomerService {
     @Autowired
@@ -59,6 +62,28 @@ public class CustomerServiceIMPL implements CustomerService {
             throw new RuntimeException("no customer found that id");
         }
 
+    }
+
+    @Override
+    public List<CustomerDto> getAllCustomer() {
+        List<Customer> getAllCustomer = customerRepo.findAll();
+
+        List<CustomerDto> customerDtoList = new ArrayList<>();
+
+        for(Customer i:getAllCustomer){    //i=customer or we can use any name
+            CustomerDto customerDto=new CustomerDto(
+                    i.getCustomerId(),
+                    i.getCustomerName(),
+                    i.getCustomerAddress(),
+                    i.getCustomerSalery(),
+                    i.getNic(),
+                    i.isActive()
+            );
+            customerDtoList.add(customerDto);   //dto ekk return krnn oni nisa api dto ekkt eka data eka gane insert krgen
+            //eka array list ekkt da gnnwa. dn aulk na eka tyenne dto type eken. eka return krnn puluwn dto widiht front ekt
+        }
+
+        return customerDtoList;
     }
 }
 
