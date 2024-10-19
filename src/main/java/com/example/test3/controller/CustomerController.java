@@ -60,4 +60,16 @@ public class CustomerController {
         String delete = customerService.deleteCustomer(customerId);
         return delete;
     }
+
+    //search by special case(active status0
+    @GetMapping(
+            path = "/get-all-customer-by-active-status/{status}"
+    )
+    public List<CustomerDto> getAllCustomerByActiveStatus(@PathVariable(value="staus") boolean activeStaus){
+        List<CustomerDto> allCustomers = customerService.getAllCustomerByActiveStatus(activeStaus);
+
+        return allCustomers;
+
+    }
+
 }

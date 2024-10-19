@@ -97,6 +97,26 @@ public class CustomerServiceIMPL implements CustomerService {
         }
     }
 
+    @Override
+    public List<CustomerDto> getAllCustomerByActiveStatus(boolean activeStaus) {
+        List<Customer> getAllActiveCustomer = customerRepo.findAllByActiveEquals(activeStaus);  ///customize quary method ekk api hdnwa active status eke ewa filter krla gnn
+        //ek hdnne repo eke.
+
+        List<CustomerDto> customerActiveDtoList = new ArrayList<>();
+        for (Customer customer:getAllActiveCustomer){
+            CustomerDto customerDto=new CustomerDto(
+                    customer.getCustomerId(),
+                    customer.getCustomerName(),
+                    customer.getCustomerAddress(),
+                    customer.getCustomerSalery(),
+                    customer.getNic(),
+                    customer.isActive()
+            );
+            customerActiveDtoList.add(customerDto);
+        }
+        return customerActiveDtoList;
+    }
+
 
 }
 

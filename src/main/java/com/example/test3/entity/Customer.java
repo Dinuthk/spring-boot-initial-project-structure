@@ -1,6 +1,8 @@
 package com.example.test3.entity;
 
 import jakarta.persistence.*;
+import lombok.AllArgsConstructor;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "customer")
