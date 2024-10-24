@@ -1,10 +1,12 @@
 package com.example.test3.controller;
 
-import com.example.test3.dto.request.CustomerUpdateDTO;
 import com.example.test3.dto.request.ItemSaveRequestDTO;
+import com.example.test3.dto.response.ItemGetResponseDTO;
 import com.example.test3.service.ItemService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/v1/item")
@@ -22,5 +24,14 @@ public class ItemController {
         // widihata uda eka return krot Impl eke function eke return karana value eka return kr gnn puluwn
         return message+"Updated";
     }
+
+//    @GetMapping(
+//            path = "/get-by-name",
+//            params = "name"
+//    )
+//    public List<ItemGetResponseDTO> getItemByNameAndStatus(@RequestParam(value = "name") String itemName){
+//        List<ItemGetResponseDTO> itemDTOS = itemService.getItemByNameAndStatus(itemName);
+//        return itemDTOS;
+//    }
 
 }

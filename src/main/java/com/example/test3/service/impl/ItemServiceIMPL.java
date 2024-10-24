@@ -2,6 +2,7 @@ package com.example.test3.service.impl;
 
 import com.example.test3.dto.CustomerDto;
 import com.example.test3.dto.request.ItemSaveRequestDTO;
+import com.example.test3.dto.response.ItemGetResponseDTO;
 import com.example.test3.entity.Customer;
 import com.example.test3.entity.Item;
 import com.example.test3.entity.enums.MeasuringUnitType;
@@ -10,8 +11,11 @@ import com.example.test3.repo.ItemRepo;
 import com.example.test3.service.ItemService;
 import com.sun.jdi.request.DuplicateRequestException;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class ItemServiceIMPL implements ItemService {
@@ -42,4 +46,17 @@ public class ItemServiceIMPL implements ItemService {
             throw new DuplicateRequestException("Already added");
         }
     }
+
+//    @Override
+//    public List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName) {
+//        boolean b=true;
+//        List<Item> items=itemRepo.findByItemNameAndActiveStateEquals(itemName,b);
+//        if(items.size()>0){  //yata kode eka speacial model mapper ekt kalim for each ekk pawichchi krpu eka meka phsuwen hdna widih
+//            List<ItemGetResponseDTO> itemGetResponseDTOS = modelMapper.map(items,new TypeToken<List<ItemGetResponseDTO>>(){}.getType());
+//        }
+//        else {
+//            throw  new RuntimeException("Item is not active");
+//        }
+//        return null;
+//    }
 }
