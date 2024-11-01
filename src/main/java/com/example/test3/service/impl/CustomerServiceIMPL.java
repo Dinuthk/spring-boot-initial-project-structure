@@ -98,13 +98,14 @@ public class CustomerServiceIMPL implements CustomerService {
     }
 
     @Override
-    public List<CustomerDto> getAllCustomerByActiveStatus(boolean activeStaus) {
-        List<Customer> getAllActiveCustomer = customerRepo.findAllByActiveEquals(activeStaus);  ///customize quary method ekk api hdnwa active status eke ewa filter krla gnn
-        //ek hdnne repo eke.
+    public List<CustomerDto> getAllCustomerByActiveStatus(boolean activeStatus) {
+        // Fetch customers based on the activeStatus parameter
+        List<Customer> getAllActiveCustomer = customerRepo.findAllByActiveEquals(activeStatus);
 
+        // Convert List<Customer> to List<CustomerDto>
         List<CustomerDto> customerActiveDtoList = new ArrayList<>();
-        for (Customer customer:getAllActiveCustomer){
-            CustomerDto customerDto=new CustomerDto(
+        for (Customer customer : getAllActiveCustomer) {
+            CustomerDto customerDto = new CustomerDto(
                     customer.getCustomerId(),
                     customer.getCustomerName(),
                     customer.getCustomerAddress(),
@@ -116,6 +117,7 @@ public class CustomerServiceIMPL implements CustomerService {
         }
         return customerActiveDtoList;
     }
+
 
 
 }

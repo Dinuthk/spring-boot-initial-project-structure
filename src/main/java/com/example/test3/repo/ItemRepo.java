@@ -11,6 +11,5 @@ import java.util.List;
 @EnableJpaRepositories
 public interface ItemRepo extends JpaRepository<Item,Integer> {
 
-  //  List<Item> findByItemNameAndActiveStateEquals(String itemName, boolean activeState);
-
+   // List<Item> findByItemNameAndActiveStateEquals(String itemName, boolean b);
 }

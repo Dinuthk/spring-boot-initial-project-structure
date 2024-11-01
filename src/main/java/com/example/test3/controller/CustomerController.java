@@ -62,14 +62,12 @@ public class CustomerController {
     }
 
     //search by special case(active status0
-    @GetMapping(
-            path = "/get-all-customer-by-active-status/{status}"
-    )
-    public List<CustomerDto> getAllCustomerByActiveStatus(@PathVariable(value="staus") boolean activeStaus){
-        List<CustomerDto> allCustomers = customerService.getAllCustomerByActiveStatus(activeStaus);
+    @GetMapping(path = "/get-all-customer-by-active-status/{status}")
+    public List<CustomerDto> getAllCustomerByActiveStatus(@PathVariable(value = "status") boolean activeStatus) {
+        List<CustomerDto> allCustomers = customerService.getAllCustomerByActiveStatus(activeStatus);
 
         return allCustomers;
-
     }
+
 
 }
