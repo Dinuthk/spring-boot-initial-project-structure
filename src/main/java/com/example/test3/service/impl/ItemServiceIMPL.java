@@ -47,11 +47,25 @@ public class ItemServiceIMPL implements ItemService {
         }
     }
 
+
+    @Override
+    public List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName) {
+        boolean isActive = true;
+        List<Item> items = itemRepo.findByItemNameAndActiveEquals(itemName, isActive);
+
+        if (!items.isEmpty()) {
+            return modelMapper.map(items, new TypeToken<List<ItemGetResponseDTO>>() {}.getType());
+        } else {
+            throw new RuntimeException("Item is not active or not found");
+        }
+    }
+
+
 //    @Override
 //    public List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName) {
 //        boolean b=true;
 //        List<Item> items=itemRepo.findByItemNameAndActiveStateEquals(itemName,b);
-//        if(items.size()>0){  //yata kode eka speacial model mapper ekt kalim for each ekk pawichchi krpu eka meka phsuwen hdna widih
+//        if(items.size()>0){  //yata code eka speacial model mapper ekt kalim for each ekk pawichchi krpu eka meka phsuwen hdna widih
 //            List<ItemGetResponseDTO> itemGetResponseDTOS = modelMapper.map(items,new TypeToken<List<ItemGetResponseDTO>>(){}.getType());
 //        }
 //        else {

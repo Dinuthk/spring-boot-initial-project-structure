@@ -8,8 +8,6 @@ import java.util.List;
 public interface ItemService {
     String saveItem(ItemSaveRequestDTO itemSaveRequestDTO);
 
+    List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName);
 
-
-
-    // List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName);
 }

@@ -25,13 +25,10 @@ public class ItemController {
         return message+"Updated";
     }
 
-//    @GetMapping(
-//            path = "/get-by-name",
-//            params = "name"
-//    )
-//    public List<ItemGetResponseDTO> getItemByNameAndStatus(@RequestParam(value = "name") String itemName){
-//        List<ItemGetResponseDTO> itemDTOS = itemService.getItemByNameAndStatus(itemName);
-//        return itemDTOS;
-//    }
+    @GetMapping(path = "/get-by-name", params = "name")
+    public List<ItemGetResponseDTO> getItemByNameAndStatus(@RequestParam(value = "name") String itemName){
+        List<ItemGetResponseDTO> itemDTOS = itemService.getItemByNameAndStatus(itemName);
+        return itemDTOS;
+    }
 
 }

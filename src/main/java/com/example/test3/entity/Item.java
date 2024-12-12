@@ -35,6 +35,4 @@ public class Item {
     @Column(name = "active_state",columnDefinition = "TINYINT default 1")
     private boolean active;
 
-
-
 }
