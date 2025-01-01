@@ -9,6 +9,7 @@ import com.example.test3.entity.enums.MeasuringUnitType;
 import com.example.test3.repo.CustomerRepo;
 import com.example.test3.repo.ItemRepo;
 import com.example.test3.service.ItemService;
+import com.example.test3.util.mappers.ItemMapper;
 import com.sun.jdi.request.DuplicateRequestException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
@@ -25,6 +26,9 @@ public class ItemServiceIMPL implements ItemService {
 
     @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    private ItemMapper itemMapper;
     @Override
     public String saveItem(ItemSaveRequestDTO itemSaveRequestDTO) {
 //        Item item=new Item(
@@ -60,7 +64,6 @@ public class ItemServiceIMPL implements ItemService {
         }
     }
 
-
 //    @Override
 //    public List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName) {
 //        boolean b=true;
@@ -73,4 +76,30 @@ public class ItemServiceIMPL implements ItemService {
 //        }
 //        return null;
 //    }
+
+    @Override
+    public List<ItemGetResponseDTO> getItemByNameAndStatusByMapstruct(String itemName) {
+        boolean isActive = true;
+        List<Item> items = itemRepo.findByItemNameAndActiveEquals(itemName, isActive);
+
+        if (!items.isEmpty()) {
+            List<ItemGetResponseDTO> itemGetResponseDTOS = itemMapper.entityListToDtoList(items);
+
+            return itemGetResponseDTOS;
+        } else {
+            throw new RuntimeException("Item is not active or not found");
+        }
+    }
+
+    @Override
+    public String deleteItem(int itemId) {
+        if(itemRepo.existsById(itemId)){
+            itemRepo.deleteById(itemId);
+            return "delete successfully completed "+ itemId;
+
+        }else{
+            throw new RuntimeException("Customer Id invalid");
+        }
+    }
+
 }

@@ -10,4 +10,7 @@ public interface ItemService {
 
     List<ItemGetResponseDTO> getItemByNameAndStatus(String itemName);
 
+    List<ItemGetResponseDTO> getItemByNameAndStatusByMapstruct(String itemName);
+
+    String deleteItem(int itemId);
 }
