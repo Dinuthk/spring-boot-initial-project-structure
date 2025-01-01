@@ -102,4 +102,16 @@ public class ItemServiceIMPL implements ItemService {
         }
     }
 
+    @Override
+    public List<CustomerDto> getAllItemByActiveStatus(boolean active) {
+
+        List<Item> items = itemRepo.findAllByActiveEquals(active);
+        if (!items.isEmpty()) {
+            return modelMapper.map(items, new TypeToken<List<ItemGetResponseDTO>>() {}.getType());
+        } else {
+            throw new RuntimeException("Items are not found");
+        }
+
+    }
+
 }

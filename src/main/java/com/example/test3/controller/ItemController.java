@@ -50,6 +50,12 @@ public class ItemController {
         return delete;
     }
 
+    //search by special case(active status0
+    @GetMapping(path = "/get-all-item-by-active-status/{status}")
+    public List<CustomerDto> getAllItemByActiveStatus(@PathVariable(value = "status") boolean active) {
+        List<CustomerDto> allItem = itemService.getAllItemByActiveStatus(active);
 
+        return allItem;
+    }
 
 }
