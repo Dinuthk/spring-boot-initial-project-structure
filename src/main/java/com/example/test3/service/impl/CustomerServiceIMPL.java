@@ -3,6 +3,7 @@ package com.example.test3.service.impl;
 import com.example.test3.dto.CustomerDto;
 import com.example.test3.dto.request.CustomerUpdateDTO;
 import com.example.test3.entity.Customer;
+import com.example.test3.exception.NotFoundException;
 import com.example.test3.repo.CustomerRepo;
 import com.example.test3.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -64,26 +65,52 @@ public class CustomerServiceIMPL implements CustomerService {
 
     }
 
+//    @Override
+//    public List<CustomerDto> getAllCustomer() {
+//        List<Customer> getAllCustomer = customerRepo.findAll();
+//
+//        List<CustomerDto> customerDtoList = new ArrayList<>();
+//
+//        for(Customer i:getAllCustomer){    //i=customer or we can use any name
+//            CustomerDto customerDto=new CustomerDto(
+//                    i.getCustomerId(),
+//                    i.getCustomerName(),
+//                    i.getCustomerAddress(),
+//                    i.getCustomerSalery(),
+//                    i.getNic(),
+//                    i.isActive()
+//            );
+//            customerDtoList.add(customerDto);   //dto ekk return krnn oni nisa api dto ekkt eka data eka gane insert krgen
+//            //eka array list ekkt da gnnwa. dn aulk na eka tyenne dto type eken. eka return krnn puluwn dto widiht front ekt
+//        }
+//
+//        return customerDtoList;
+//    }
     @Override
     public List<CustomerDto> getAllCustomer() {
         List<Customer> getAllCustomer = customerRepo.findAll();
 
-        List<CustomerDto> customerDtoList = new ArrayList<>();
+        if (getAllCustomer.size()>0){
+            List<CustomerDto> customerDtoList = new ArrayList<>();
 
-        for(Customer i:getAllCustomer){    //i=customer or we can use any name
-            CustomerDto customerDto=new CustomerDto(
-                    i.getCustomerId(),
-                    i.getCustomerName(),
-                    i.getCustomerAddress(),
-                    i.getCustomerSalery(),
-                    i.getNic(),
-                    i.isActive()
-            );
-            customerDtoList.add(customerDto);   //dto ekk return krnn oni nisa api dto ekkt eka data eka gane insert krgen
-            //eka array list ekkt da gnnwa. dn aulk na eka tyenne dto type eken. eka return krnn puluwn dto widiht front ekt
+            for(Customer i:getAllCustomer){    //i=customer or we can use any name
+                CustomerDto customerDto=new CustomerDto(
+                        i.getCustomerId(),
+                        i.getCustomerName(),
+                        i.getCustomerAddress(),
+                        i.getCustomerSalery(),
+                        i.getNic(),
+                        i.isActive()
+                );
+                customerDtoList.add(customerDto);   //dto ekk return krnn oni nisa api dto ekkt eka data eka gane insert krgen
+                //eka array list ekkt da gnnwa. dn aulk na eka tyenne dto type eken. eka return krnn puluwn dto widiht front ekt
+            }
+
+            return customerDtoList;
         }
-
-        return customerDtoList;
+        else {
+            throw new NotFoundException("Mo Customer Found");
+        }
     }
 
     @Override

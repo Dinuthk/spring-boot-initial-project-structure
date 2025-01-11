@@ -71,11 +71,11 @@ public class ItemController {
     @GetMapping(path = "/get-by-name-with-mapstruct", params = "name")
     public ResponseEntity<StandardResponse> getItemByNameAndStatusByMapstruct(@RequestParam(value = "name") String itemName){
         List<ItemGetResponseDTO> itemDTOS = itemService.getItemByNameAndStatusByMapstruct(itemName);
-        ResponseEntity<StandardResponse> response = new ResponseEntity<StandardResponse>(
+
+        return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200,"Sucsess",itemDTOS),
                 HttpStatus.OK
         );
-        return response;
     }
 
     //delete
@@ -91,11 +91,11 @@ public class ItemController {
     )
     public ResponseEntity<StandardResponse> deleteCustomer(@PathVariable(value = "id") int itemId){
         String delete = itemService.deleteItem(itemId);
-        ResponseEntity<StandardResponse> response = new ResponseEntity<StandardResponse>(
-                new StandardResponse(200,"Sucsess",delete),
+
+        return new ResponseEntity<StandardResponse>(
+                new StandardResponse(204,"Sucsess",delete),
                 HttpStatus.OK
         );
-        return response;
     }
 
     //search by special case(active status0
@@ -108,11 +108,10 @@ public class ItemController {
     @GetMapping(path = "/get-all-item-by-active-status/{status}")
     public ResponseEntity<StandardResponse> getAllItemByActiveStatus(@PathVariable(value = "status") boolean active) {
         List<CustomerDto> allItem = itemService.getAllItemByActiveStatus(active);
-        ResponseEntity<StandardResponse> response = new ResponseEntity<StandardResponse>(
+
+        return new ResponseEntity<StandardResponse>(
                 new StandardResponse(200,"Sucsess",allItem),
                 HttpStatus.OK
         );
-
-        return response;
     }
 }
