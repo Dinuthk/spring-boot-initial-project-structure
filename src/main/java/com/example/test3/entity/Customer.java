@@ -11,7 +11,7 @@ public class Customer {
 
     @Id
     @Column(name = "customer_Id",length = 45)
-    @GeneratedValue(strategy = GenerationType.AUTO)
+   // @GeneratedValue(strategy = GenerationType.AUTO)
     private int customerId;
 
     @Column(name = "Customer_Name",length = 100,nullable = false)

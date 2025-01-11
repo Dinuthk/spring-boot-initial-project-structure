@@ -3,6 +3,7 @@ package com.example.test3.service.impl;
 import com.example.test3.dto.CustomerDto;
 import com.example.test3.dto.request.CustomerUpdateDTO;
 import com.example.test3.entity.Customer;
+import com.example.test3.exception.CustomerAlreadyExistsException;
 import com.example.test3.exception.NotFoundException;
 import com.example.test3.repo.CustomerRepo;
 import com.example.test3.service.CustomerService;
@@ -16,19 +17,37 @@ import java.util.List;
 public class CustomerServiceIMPL implements CustomerService {
     @Autowired
     private CustomerRepo customerRepo;
+//    @Override
+//    public String saveCustomer(CustomerDto customerDto) {
+//
+//        Customer customer=new Customer(
+//                customerDto.getCustomerId(),
+//                customerDto.getCustomerName(),
+//                customerDto.getCustomerAddress(),
+//                customerDto.getCustomerSalery(),
+//                customerDto.getNic(),
+//                customerDto.isActive()
+//        );
+//        customerRepo.save(customer);
+//        return customerDto.getCustomerName();
+//    }
     @Override
     public String saveCustomer(CustomerDto customerDto) {
-
-        Customer customer=new Customer(
-                customerDto.getCustomerId(),
-                customerDto.getCustomerName(),
-                customerDto.getCustomerAddress(),
-                customerDto.getCustomerSalery(),
-                customerDto.getNic(),
-                customerDto.isActive()
-        );
-        customerRepo.save(customer);
-        return customerDto.getCustomerName();
+        if(customerRepo.existsById(customerDto.getCustomerId())){
+            throw new CustomerAlreadyExistsException("Customer already exists!!");
+        }
+        else {
+            Customer customer=new Customer(
+                    customerDto.getCustomerId(),
+                    customerDto.getCustomerName(),
+                    customerDto.getCustomerAddress(),
+                    customerDto.getCustomerSalery(),
+                    customerDto.getNic(),
+                    customerDto.isActive()
+            );
+            customerRepo.save(customer);
+            return customerDto.getCustomerName();
+        }
     }
 
     @Override
@@ -64,7 +83,7 @@ public class CustomerServiceIMPL implements CustomerService {
         }
 
     }
-
+// no use exception handling
 //    @Override
 //    public List<CustomerDto> getAllCustomer() {
 //        List<Customer> getAllCustomer = customerRepo.findAll();
@@ -109,7 +128,7 @@ public class CustomerServiceIMPL implements CustomerService {
             return customerDtoList;
         }
         else {
-            throw new NotFoundException("Mo Customer Found");
+            throw new NotFoundException("No Customer Found ");
         }
     }
 
