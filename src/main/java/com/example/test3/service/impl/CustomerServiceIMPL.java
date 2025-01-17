@@ -3,7 +3,7 @@ package com.example.test3.service.impl;
 import com.example.test3.dto.CustomerDto;
 import com.example.test3.dto.request.CustomerUpdateDTO;
 import com.example.test3.entity.Customer;
-import com.example.test3.exception.CustomerAlreadyExistsException;
+import com.example.test3.exception.AlreadyExistsException;
 import com.example.test3.exception.NotFoundException;
 import com.example.test3.repo.CustomerRepo;
 import com.example.test3.service.CustomerService;
@@ -34,7 +34,7 @@ public class CustomerServiceIMPL implements CustomerService {
     @Override
     public String saveCustomer(CustomerDto customerDto) {
         if(customerRepo.existsById(customerDto.getCustomerId())){
-            throw new CustomerAlreadyExistsException("Customer already exists!!");
+            throw new AlreadyExistsException("Customer already exists!!");
         }
         else {
             Customer customer=new Customer(

@@ -1,11 +1,13 @@
 package com.example.test3.service.impl;
 
 import com.example.test3.dto.CustomerDto;
+import com.example.test3.dto.paginated.PaginatedResponseItemDto;
 import com.example.test3.dto.request.ItemSaveRequestDTO;
 import com.example.test3.dto.response.ItemGetResponseDTO;
 import com.example.test3.entity.Customer;
 import com.example.test3.entity.Item;
 import com.example.test3.entity.enums.MeasuringUnitType;
+import com.example.test3.exception.NotFoundException;
 import com.example.test3.repo.CustomerRepo;
 import com.example.test3.repo.ItemRepo;
 import com.example.test3.service.ItemService;
@@ -14,6 +16,8 @@ import com.sun.jdi.request.DuplicateRequestException;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.TypeToken;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -103,7 +107,7 @@ public class ItemServiceIMPL implements ItemService {
     }
 
     @Override
-    public List<CustomerDto> getAllItemByActiveStatus(boolean active) {
+    public List<ItemGetResponseDTO> getAllItemByActiveStatus(boolean active) {
 
         List<Item> items = itemRepo.findAllByActiveEquals(active);
         if (!items.isEmpty()) {
@@ -112,5 +116,19 @@ public class ItemServiceIMPL implements ItemService {
             throw new RuntimeException("Items are not found");
         }
 
+    }
+
+    @Override
+    public PaginatedResponseItemDto getAllItemByActiveStatuswithPaginated(boolean active, int page, int size) {
+        Page<Item> items = itemRepo.findAllByActiveEquals(active, PageRequest.of(page,size));
+        int count = itemRepo.countAllByActiveEquals(active);
+        if(items.getSize()<1){
+            throw new NotFoundException("No Data");
+        }
+        PaginatedResponseItemDto paginatedResponseItemDto = new PaginatedResponseItemDto(
+            itemMapper.ListDTOToPage(items),
+                count
+        );
+        return paginatedResponseItemDto;
     }
 }

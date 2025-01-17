@@ -1,7 +1,7 @@
 package com.example.test3.advisor;
 
 
-import com.example.test3.exception.CustomerAlreadyExistsException;
+import com.example.test3.exception.AlreadyExistsException;
 import com.example.test3.exception.NotFoundException;
 import com.example.test3.util.StandardResponse;
 import org.springframework.http.HttpStatus;
@@ -19,8 +19,8 @@ public class AppWideExceptionHandler {
         );
     }
 
-    @ExceptionHandler(CustomerAlreadyExistsException.class)
-    public ResponseEntity<StandardResponse> customerAlreadyExistsException(CustomerAlreadyExistsException e){
+    @ExceptionHandler(AlreadyExistsException.class)
+    public ResponseEntity<StandardResponse> customerAlreadyExistsException(AlreadyExistsException e){
         return new ResponseEntity<StandardResponse>(
                 new StandardResponse(404,"Error Comming",e.getMessage()+"dinuth test"),
                 HttpStatus.ALREADY_REPORTED

@@ -1,10 +1,12 @@
 package com.example.test3.controller;
 
 import com.example.test3.dto.CustomerDto;
+import com.example.test3.dto.paginated.PaginatedResponseItemDto;
 import com.example.test3.dto.request.ItemSaveRequestDTO;
 import com.example.test3.dto.response.ItemGetResponseDTO;
 import com.example.test3.service.ItemService;
 import com.example.test3.util.StandardResponse;
+import jakarta.validation.constraints.Max;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpStatusCode;
@@ -98,19 +100,27 @@ public class ItemController {
         );
     }
 
-    //search by special case(active status0
-//    @GetMapping(path = "/get-all-item-by-active-status/{status}")
-//    public List<CustomerDto> getAllItemByActiveStatus(@PathVariable(value = "status") boolean active) {
-//        List<CustomerDto> allItem = itemService.getAllItemByActiveStatus(active);
-//
-//        return allItem;
-//    }
+  //  search by special case(active status0
     @GetMapping(path = "/get-all-item-by-active-status/{status}")
-    public ResponseEntity<StandardResponse> getAllItemByActiveStatus(@PathVariable(value = "status") boolean active) {
-        List<CustomerDto> allItem = itemService.getAllItemByActiveStatus(active);
+    public List<ItemGetResponseDTO> getAllItemByActiveStatus(@PathVariable(value = "status") boolean active) {
+        List<ItemGetResponseDTO> allItem = itemService.getAllItemByActiveStatus(active);
 
+        return allItem;
+    }
+
+    @GetMapping(
+            path = "/get-all-item-by-active-page-size-status",
+            params = {"status","page","size"}
+    )
+    public ResponseEntity<StandardResponse> getAllItemByActiveStatus(
+            @RequestParam(value = "status") boolean active,
+            @RequestParam(value = "page") int page,
+            @RequestParam(value = "size")  int size
+            ) {
+        //List<CustomerDto> allItem = itemService.getAllItemByActiveStatus(active);
+        PaginatedResponseItemDto paginatedResponseItemDto = itemService.getAllItemByActiveStatuswithPaginated(active,page,size);
         return new ResponseEntity<StandardResponse>(
-                new StandardResponse(200,"Sucsess",allItem),
+                new StandardResponse(200,"Sucsess",paginatedResponseItemDto),
                 HttpStatus.OK
         );
     }

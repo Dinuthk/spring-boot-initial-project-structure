@@ -4,6 +4,8 @@ import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.NoArgsConstructor;
 
+import java.util.Set;
+
 @Entity
 @Table(name = "customer")
 
@@ -30,6 +32,10 @@ public class Customer {
 
     @Column(name = "active_state",columnDefinition = "TINYINT default 1")
     private boolean active;
+
+    //one to many relation ekak order ekk
+    @OneToMany(mappedBy="cusromers")
+    private Set<Order> orders;
 
     public Customer() {
 
