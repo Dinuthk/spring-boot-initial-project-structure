@@ -34,7 +34,7 @@ public class Customer {
     private boolean active;
 
     //one to many relation ekak order ekk
-    @OneToMany(mappedBy="cusromers")
+    @OneToMany(mappedBy="customers")
     private Set<Order> orders;
 
     public Customer() {
